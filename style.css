@@ -1,0 +1,231 @@
+:root {
+    --neon-pink: #ff2a6d;
+    --neon-blue: #05d9e8;
+    --neon-purple: #7700ff;
+    --dark-bg: #0a0a1f;
+    --darker-bg: #050510;
+    --grid-color: rgba(5, 217, 232, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--darker-bg);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    width: 800px;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(5, 217, 232, 0.3),
+                0 0 60px rgba(255, 42, 109, 0.2);
+}
+
+#gameCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    cursor: none;
+}
+
+/* Game UI */
+.game-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.ui-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+}
+
+.score-container, .level-container, .health-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.score-label, .level-label, .health-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px var(--neon-blue);
+}
+
+.score-value, .level-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 15px var(--neon-pink);
+}
+
+.health-bar {
+    width: 150px;
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--neon-blue);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    width: 100%;
+    transition: width 0.2s;
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+
+/* Game Overlay */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 31, 0.95);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    pointer-events: all;
+}
+
+.game-overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    text-align: center;
+    animation: glowPulse 2s infinite;
+}
+
+.overlay-content h2 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(255,42,109,0.5);
+}
+
+.overlay-content p {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.restart-btn {
+    background: transparent;
+    border: 2px solid var(--neon-blue);
+    color: var(--neon-blue);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 15px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(5, 217, 232, 0.3);
+}
+
+.restart-btn:hover {
+    background: var(--neon-blue);
+    color: var(--dark-bg);
+    transform: scale(1.1);
+    box-shadow: 0 0 40px var(--neon-blue);
+}
+
+/* Controls Hint */
+.controls-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px;
+    background: rgba(5, 5, 16, 0.8);
+    border: 1px solid var(--neon-blue);
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    pointer-events: none;
+}
+
+.hint-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.key {
+    padding: 4px 8px;
+    background: rgba(5, 217, 232, 0.2);
+    border: 1px solid var(--neon-blue);
+    border-radius: 5px;
+    color: var(--neon-blue);
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(5, 217, 232, 0.3);
+}
+
+/* Animations */
+@keyframes glowPulse {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+    .game-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+    
+    .controls-hint {
+        bottom: 10px;
+        padding: 8px 16px;
+        gap: 10px;
+    }
+    
+    .hint-item {
+        font-size: 10px;
+    }
+    
+    .key {
+        padding: 2px 6px;
+    }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA JUMP • Neon Platformer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Game Canvas -->
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+        
+        <!-- UI Overlay -->
+        <div class="game-ui">
+            <div class="ui-top">
+                <div class="score-container">
+                    <span class="score-label">SCORE</span>
+                    <span class="score-value" id="scoreDisplay">0</span>
+                </div>
+                <div class="level-container">
+                    <span class="level-label">LEVEL</span>
+                    <span class="level-value" id="levelDisplay">1</span>
+                </div>
+                <div class="health-container">
+                    <span class="health-label">ENERGY</span>
+                    <div class="health-bar" id="healthBar">
+                        <div class="health-fill" id="healthFill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Over Modal -->
+            <div class="game-overlay" id="gameOverlay">
+                <div class="overlay-content">
+                    <h2 id="overlayTitle">GAME OVER</h2>
+                    <p id="overlayMessage">Final Score: <span id="finalScore">0</span></p>
+                    <button class="restart-btn" id="restartBtn">PLAY AGAIN</button>
+                </div>
+            </div>
+            
+            <!-- Controls Hint -->
+            <div class="controls-hint">
+                <div class="hint-item"><span class="key">← →</span> MOVE</div>
+                <div class="hint-item"><span class="key">SPACE</span> JUMP</div>
+                <div class="hint-item"><span class="key">R</span> RESTART</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
